@@ -15,7 +15,7 @@
   <form>
     <div>
       <label>
-        GitHub Organization<br>
+        organization<br>
         <input name="organization">
       </label>
     </div>
@@ -33,13 +33,13 @@
     </div>
     <div>
       <label>
-        Milestone Title<br>
+        title<br>
         <input name="title">
       </label>
     </div>
     <div>
       <label>
-        Description<br>
+        description<br>
         <textarea name="description" rows="3"></textarea>
       </label>
     </div>
@@ -52,6 +52,21 @@
 
     <button type="submit">Go for it</button>
   </form>
+
+  <pre><code>
+ghorg(input.organization).authenticate({
+  username: input.username,
+  password: input.password,
+}).then(function(api) {
+  api.milestones.add({
+    title: input.title,
+    description: input.description
+  }).then(function() {
+    alert('done');
+    $inputs.val('');
+  });
+});
+  </code></pre>
 
   <script src="bower_components/jquery/jquery.min.js"></script>
   <script src="ghorg.js"></script>
