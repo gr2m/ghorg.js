@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Playground</title>
+</head>
+<body>
+
+  <h1>Playground</h1>
+  <p>Nothing to see hear, yet.</p>
+
+  <hr>
+
+  <h3>Add Milestone to all repositories of an organization</h3>
+
+  <form>
+    <div>
+      <label>
+        GitHub Organization<br>
+        <input name="organization">
+      </label>
+    </div>
+    <div>
+      <label>
+        username<br>
+        <input name="username">
+      </label>
+    </div>
+    <div>
+      <label>
+        password<br>
+        <input name="password" type="password">
+      </label>
+    </div>
+    <div>
+      <label>
+        Milestone Title<br>
+        <input name="title">
+      </label>
+    </div>
+    <div>
+      <label>
+        Description<br>
+        <textarea name="description" rows="3"></textarea>
+      </label>
+    </div>
+    <!-- <div>
+      <label>
+        Due at<br>
+        <input name="due" type="date">
+      </label>
+    </div> -->
+
+    <button type="submit">Go for it</button>
+  </form>
+
+  <script src="bower_components/jquery/jquery.min.js"></script>
+  <script src="ghorg.js"></script>
+  <script>
+  $('form').on('submit',function(event) {
+    var input = {};
+
+    event.preventDefault();
+    var $inputs = $(this).find('[name]').each(function() {
+      input[this.name] = this.value;
+    });
+
+    ghorg(input.organization).authenticate({
+      username: input.username,
+      password: input.password,
+    }).then(function(api) {
+      api.milestones.add({
+        title: input.title,
+        description: input.description
+      }).then(function() {
+        alert('done');
+        $inputs.val('');
+      });
+    });
+  });
+  </script>
+</body>
+</html>
