@@ -49,7 +49,7 @@
     api.milestones = {};
     api.milestones.add = function addMilestone(properties) {
       var milestone = new api.Milestone(properties);
-      api.repositories.findAll().then( milestone.addTo.bind(milestone) );
+      return api.repositories.findAll().then( milestone.addTo.bind(milestone) );
     };
 
     // PRIVATE
